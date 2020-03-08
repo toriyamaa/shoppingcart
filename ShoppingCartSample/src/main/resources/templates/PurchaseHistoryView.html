@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>購入履歴</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<h2>購入履歴</h2>
+  <p th:if="${#lists.isEmpty(purchaseHistoryList)}">購入履歴がありません。</p>
+  <div th:unless="${#lists.isEmpty(purchaseHistoryList)}">
+  	<table class="table table-bordered">
+  		<thead class="thead-lignt">
+  			<tr>
+  				<th>購入日時</th>
+          <th>商品ID</th>
+  				<th>商品名</th>
+  				<th>価格</th>
+  				<th>購入個数</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+      <!--/*/ <div th:each="purchaseHistory : ${purchaseHistoryList}" th:remove="tag" > /*/-->
+  		<tr th:each="purchaseHistoryDetails, state: ${purchaseHistory.purchaseHistoryDetails}">
+  			<td th:if="${state.first}" th:rowspan="${purchaseHistory.purchaseHistoryDetailCount}" th:text="${purchaseHistory.purchaseDateTime}"></td>
+        <td th:text="${purchaseHistoryDetails.itemId}"></td>
+  			<td th:text="${purchaseHistoryDetails.itemName}"></td>
+        <td th:text="${purchaseHistoryDetails.itemPrice}"></td>
+  			<td th:text="${purchaseHistoryDetails.quantity}"></td>
+  		</tr>
+      <!--/*/ </div> /*/-->
+  		</tbody>
+  	</table>
+  </div>
+  <p><a th:href="@{/list}">商品一覧へ</a></p>
+</body>
+</html>

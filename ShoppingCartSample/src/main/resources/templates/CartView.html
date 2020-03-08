@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>カート情報</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<h2>カート情報</h2>
+	<p th:if="${#lists.isEmpty(orderList.orders)}">注文内容がありません。</p>
+  <div th:unless="${#lists.isEmpty(orderList.orders)}">
+  	<table class="table table-bordered">
+  		<thead class="thead-lignt">
+  			<tr>
+  				<th>商品ID</th>
+  				<th>商品名</th>
+  				<th>価格</th>
+  				<th>個数</th>
+  				<th></th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  		<tr th:each="order: ${orderList.orders}">
+  			<td th:text="${order.itemId}"></td>
+  			<td th:text="${order.name}"></td>
+  			<td th:text="${order.price}"></td>
+  			<td th:text="${order.num}"></td>
+  			<td>
+  				<form th:action="@{/cart}" method="POST">
+  					<input type="hidden" name="itemId" th:value="${order.itemId}" />
+  					<input type="submit" value="削除" />
+  				</form>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td colspan="4">合計</td>
+  			<td th:text="${orderList.totalPrice}"></td>
+  		</tr>
+  		</tbody>
+  	</table>
+    <button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#purchase-confirmation-modal">購入</button>
+  </div>
+  <div class="modal fade" id="purchase-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">購入確認</h4>
+        </div>
+        <div class="modal-body">
+          <label>購入しますか？</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          <form th:action="@{/purchase}" method="POST">
+            <button type="submit" class="btn btn-danger">購入</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+	<p><a th:href="@{/list}">商品一覧へ</a></p>
+</body>
+</html>

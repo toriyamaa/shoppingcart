@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>商品一覧</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<h2>商品一覧</h2>
+	<p th:if="${#lists.isEmpty(itemList.items)}">商品がありません。</p>
+	<table th:unless="${#lists.isEmpty(itemList.items)}"  class="table table-bordered">
+		<thead class="thead-lignt">
+			<tr>
+				<th>商品ID</th>
+				<th>商品名</th>
+				<th>価格</th>
+				<th>注文個数</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="item: ${itemList.items}">
+			<td th:text="${item.itemId}"></td>
+			<td th:text="${item.name}"></td>
+			<td th:text="${item.price}"></td>
+			<td>
+				<form th:action="@{/list}" method="POST">
+					<input type="hidden" name="itemId" th:value="${item.itemId}" />
+					<input type="number" name="num" min="1"/>
+					<input type="submit" value="カートに追加" />
+				</form>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+  <p><a th:href="@{/cart}">カート情報へ</a></p>
+  <p><a th:href="@{/purchaseHistory}">購入履歴へ</a></p>
+</body>
+</html>
