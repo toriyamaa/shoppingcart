@@ -2,7 +2,7 @@ package jp.co.systena.tigerscave.shoppingcart.domain.model;
 
 class Dollar {
 
-  int amount;
+  private int amount;
 
   Dollar(int amount) {
     this.amount = amount;
