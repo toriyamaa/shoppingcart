@@ -1,7 +1,10 @@
 package jp.co.systena.tigerscave.shoppingcart.domain.model;
 
-class Money {
+abstract class Money {
+
   protected int amount;
+
+  abstract Money times(int multiplier);
 
   @Override
   public int hashCode() {
@@ -23,6 +26,14 @@ class Money {
     if (amount != other.amount)
       return false;
     return true;
+  }
+
+  static Money dollar(int amount) {
+    return new Dollar(amount);
+  }
+
+  static Money franc(int amount) {
+    return new Franc(amount);
   }
 
 }
