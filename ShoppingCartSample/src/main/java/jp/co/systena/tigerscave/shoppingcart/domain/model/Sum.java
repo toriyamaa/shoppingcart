@@ -18,8 +18,11 @@ public class Sum implements Expression {
 
   @Override
   public Expression plus(Expression addend) {
-    // TODO 自動生成されたメソッド・スタブ
-    return null;
+    return new Sum(this, addend);
+  }
+
+  public Expression times(int mulitiplier) {
+    return new Sum(augend.times(mulitiplier), addend.times(mulitiplier));
   }
 
 }
