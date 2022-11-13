@@ -1,6 +1,6 @@
 package jp.co.systena.tigerscave.shoppingcart.domain.model;
 
-abstract class Money {
+class Money {
 
   protected int amount;
   protected String currency;
@@ -10,10 +10,20 @@ abstract class Money {
     this.currency = currency;
   }
 
-  abstract Money times(int multiplier);
+  Money times(int multiplier) {
+    return new Money(amount * multiplier, currency);
+  }
 
   String currency() {
     return currency;
+  }
+
+  static Money dollar(int amount) {
+    return new Dollar(amount, "USD");
+  }
+
+  static Money franc(int amount) {
+    return new Franc(amount, "CHF");
   }
 
   @Override
@@ -30,20 +40,14 @@ abstract class Money {
       return true;
     if (obj == null)
       return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Money other = (Money) obj;
-    if (amount != other.amount)
-      return false;
-    return true;
+    Money money = (Money) obj;
+    return amount == money.amount
+        && currency().equals(money.currency());
   }
 
-  static Money dollar(int amount) {
-    return new Dollar(amount, "USD");
-  }
-
-  static Money franc(int amount) {
-    return new Franc(amount, "CHF");
+  @Override
+  public String toString() {
+    return amount + " " + currency;
   }
 
 }
