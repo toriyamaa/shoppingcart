@@ -1,9 +1,0 @@
-package jp.co.systena.tigerscave.shoppingcart.domain.model;
-
-class Dollar extends Money {
-
-  Dollar(int amount, String currency) {
-    super(amount, currency);
-  }
-
-}
