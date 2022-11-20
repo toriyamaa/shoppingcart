@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+    <Appenders>
+        <!-- コンソールログ出力設定 -->
+        <Console name="Console" target="SYSTEM_OUT">
+<!--             <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-6p %l %c %C %logger{36} - %msg%n</pattern>
+            </PatternLayout> -->
+		       <!-- ログのフォーマット
+		   		%dは日時。{}に日時の形式を指定
+		   		%tはスレッド名
+		   		%-6pはログレベル名称を左詰めで6文字分出力する。「debug」であれば後ろに空白１文字が追加される。
+		   		    但し、%-3pとしても名称は削られず「debug」として出力される。%6と-をとると右づめになる。
+		   		%lはログを生成したソースファイル名と行数。※性能への影響を考慮して使用する。
+		   		%c{x}は,例えばロガー名がorg.apache.commons.Fooのとき%c{2}の場合、commons.Fooが出力される
+		   		%Cはログを生成したクラス名。%C{1}のように{ }内に取得するレベルを指定することが可能。
+		   		%mはログメッセージ
+		   		%nは改行
+		      -->
+			<JSONLayout compact="true" eventEol="true"></JSONLayout>
+			<!-- JSONLayoutでJSON形式でログ出力される -->
+			<!-- compactとeventEolというパラメータをtrueで設定することで、改行されずに１行でログが出力される -->
+        </Console>
+        <!-- ログファイル出力設定
+        <File name="LogFile" fileName="C:/work/logs/demo.log">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+        </File> -->
+    </Appenders>
+    <Loggers>
+        <!-- コンソールとファイルにログ出力をするための設定 -->
+        <Logger name="jp.co.systena.tigerscave.shoppingcart" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <!-- <AppenderRef ref="LogFile"/> -->
+        </Logger>
+    </Loggers>
+</Configuration>

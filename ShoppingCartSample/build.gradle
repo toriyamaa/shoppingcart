@@ -16,8 +16,28 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//log4j2を利用するための設定
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    implementation platform('org.apache.logging.log4j:log4j-bom:2.17.0')
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
 	implementation 'org.webjars:jquery:3.4.1'
 	implementation 'org.webjars:bootstrap:4.3.1'
 	runtimeOnly 'org.postgresql:postgresql'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//log4j2を利用するため、Spring BootデフォルトのLogbackを利用しないよう設定
+    modules {
+        module('org.springframework.boot:spring-boot-starter-logging') {
+            replacedBy 'org.springframework.boot:spring-boot-starter-log4j2'
+        }
+    }
 }
+
+ext
+{
+  set('log4j2.version', '2.17.0')
+}
+
