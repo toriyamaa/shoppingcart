@@ -37,6 +37,12 @@ class LogTest {
     logger.info("INFO LOG");
     logger.warn("WARNING LOG");
     logger.error("ERROR LOG");
+
+    try {
+      throw new Exception("例外のログ確認");
+    } catch (Exception e) {
+      logger.fatal("FATAL LOG", e);
+    }
   }
 
 }

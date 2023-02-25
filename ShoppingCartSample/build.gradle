@@ -2,6 +2,26 @@ plugins {
 	id 'org.springframework.boot' version '2.2.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id "com.github.spotbugs" version "4.3.0"
+	id 'checkstyle'
+	id 'jacoco'
+}
+
+spotbugs {
+  ignoreFailures = true//ビルド実行を続行させるため
+  spotbugsMain {
+    reports {
+        html {
+            enabled = true
+            stylesheet = 'fancy-hist.xsl'
+        }
+    }
+  }
+}
+
+checkstyle {
+    toolVersion = '8.36.1'
+    configFile = rootProject.file('config/checkstyle/google_checks.xml')
 }
 
 group = 'jp.co.systena.tigerscave.shoppingcart'
@@ -36,6 +56,7 @@ dependencies {
     }
 }
 
+//log4j2のバージョンを指定するため
 ext
 {
   set('log4j2.version', '2.17.0')
