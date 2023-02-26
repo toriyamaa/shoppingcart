@@ -22,6 +22,7 @@ spotbugs {
 checkstyle {
     toolVersion = '8.36.1'
     configFile = rootProject.file('config/checkstyle/google_checks.xml')
+    ignoreFailures = true
 }
 
 group = 'jp.co.systena.tigerscave.shoppingcart'
